@@ -12,13 +12,14 @@ Two products are required: - A RESTful API which allows full CRUD access to the 
 Additionally, a new feature is required to allow an administrator to create a schedule for a theatre, adding films to the roster and specifying showing times. No ticketing system is required at this point in the project. The cinema film scheduling feature should also be provided through both interfaces (REST & Web).
 
 ### Required Technologies
-The persistence mechanism must be MongoDB
-The database must be hosted on MongoDB Atlas using the "Shared" (free) tier hosted on AWS
-The database must be based on the sample_mflix database, which is provided for use within MongoDB - this tutorial explains how to install the sample
-Spring Boot must be used for the API and Web front ends
-Spring Data MongoDB must be used for accessing the database from both the API and the Web application
-The code repository for the project must be hosted on GitHub
-Submission
+- The persistence mechanism must be MongoDB
+- The database must be hosted on MongoDB Atlas using the "Shared" (free) tier hosted on AWS
+- The database must be based on the sample_mflix database, which is provided for use within MongoDB - this tutorial explains how to install the sample
+- Spring Boot must be used for the API and Web front ends
+- Spring Data MongoDB must be used for accessing the database from both the API and the Web application
+- The code repository for the project must be hosted on GitHub
+
+#### Submission
 By link to GitHub repo, by 18:00 on Friday.
 
 ### Project Presentations
