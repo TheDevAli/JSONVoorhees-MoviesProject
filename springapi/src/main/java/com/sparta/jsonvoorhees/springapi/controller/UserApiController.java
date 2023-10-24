@@ -38,7 +38,7 @@ public class UserApiController {
         serviceLayer.deleteUserById(id);
     }
 
-    @PatchMapping("/api/users/{id}")
+    @PatchMapping("/api/users")
     public User updateUser(@RequestBody User user) {
         return serviceLayer.updateUser(user);
     }
