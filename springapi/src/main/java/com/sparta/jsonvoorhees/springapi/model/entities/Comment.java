@@ -1,11 +1,14 @@
 package com.sparta.jsonvoorhees.springapi.model.entities;
 
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("comments")
 public class Comment {
 
+  @Id
   private String id;
   private java.util.Date date;
   private String email;
