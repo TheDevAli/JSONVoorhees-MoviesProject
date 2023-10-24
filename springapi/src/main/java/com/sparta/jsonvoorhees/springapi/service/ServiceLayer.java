@@ -115,32 +115,30 @@ public class ServiceLayer {
     //@TODO: Look into having these return something to indicate success
     //These appear to return the object that is saved?
 
-    public void updateComment(Comment newComment)
+    public Comment updateComment(Comment newComment)
     {
         // Save creates new entity if it doesn't exist, updates existing one if it does
-        Comment result = commentRepository.save(newComment);
-        return result;
+        return commentRepository.save(newComment);
     }
 
-    public void updateMovie(Movie newMovie)
+    public Movie updateMovie(Movie newMovie)
     {
-        movieRepository.save(newMovie);
+        return movieRepository.save(newMovie);
     }
 
-    public void updateSchedule(Schedule newSchedule)
+    public Schedule updateSchedule(Schedule newSchedule)
     {
-        Schedule result = scheduleRepository.save(newSchedule);
-        return result;
+        return scheduleRepository.save(newSchedule);
     }
 
-    public void updateTheater(Theater newTheater)
+    public Theater updateTheater(Theater newTheater)
     {
-        theaterRepository.save(newTheater);
+        return theaterRepository.save(newTheater);
     }
 
-    public void updateUser(User newUser)
+    public User updateUser(User newUser)
     {
-        userRepository.save(newUser);
+        return userRepository.save(newUser);
     }
     //endregion
 
@@ -196,29 +194,29 @@ public class ServiceLayer {
     //region Creators
     //Some of these are the same as the savers, as a save with new data adds it
 
-    public void addComment(Comment newComment)
+    public Comment addComment(Comment newComment)
     {
-        commentRepository.save(newComment);
+        return commentRepository.save(newComment);
     }
 
-    public void addMovie(Movie newMovie)
+    public Movie addMovie(Movie newMovie)
     {
-        movieRepository.save(newMovie);
+        return movieRepository.save(newMovie);
     }
 
-    public void addSchedule(Schedule newSchedule)
+    public Schedule addSchedule(Schedule newSchedule)
     {
-        scheduleRepository.save(newSchedule);
+        return scheduleRepository.save(newSchedule);
     }
 
-    public void addTheater(Theater newTheater)
+    public Theater addTheater(Theater newTheater)
     {
-        theaterRepository.save(newTheater);
+        return theaterRepository.save(newTheater);
     }
 
-    public void addUser(User newUser)
+    public User addUser(User newUser)
     {
-        userRepository.save(newUser);
+        return userRepository.save(newUser);
     }
 
     public void addComments(List<Comment> newComments)

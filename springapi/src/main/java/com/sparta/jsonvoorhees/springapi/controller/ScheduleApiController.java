@@ -26,7 +26,7 @@ public class ScheduleApiController {
 
     @PostMapping("/api/schedules")
     public Schedule createSchedule(@RequestBody Schedule schedule) {
-        return serviceLayer.saveSchedule(schedule);
+        return serviceLayer.addSchedule(schedule);
     }
 
 //    @DeleteMapping("/api/schedules/{id}")

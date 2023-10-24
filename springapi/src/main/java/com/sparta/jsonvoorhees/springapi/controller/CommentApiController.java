@@ -36,7 +36,7 @@ public class CommentApiController {
 
     @PostMapping("/api/comments")
     public Comment createComment(@RequestBody Comment comment) {
-        return serviceLayer.saveComment(comment);
+        return serviceLayer.addComment(comment);
     }
 
 //    @DeleteMapping("/api/comments/{id}")
