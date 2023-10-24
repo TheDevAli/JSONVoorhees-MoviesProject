@@ -70,22 +70,25 @@ public class ServiceLayer {
     //region Basic Getters
     public Optional<Movie> getMovieById(String movieId)
     {
-        return null;
+        return movieRepository.findMovieById(movieId);
     }
 
     public Optional<Theater> getTheaterById(String theaterId)
     {
-        return null;
+        //@TODO: Check this one
+        return theaterRepository.findTheaterByTheaterId(Long.valueOf(theaterId));
     }
 
     public Optional<Schedule> getScheduleById(String scheduleId)
     {
-        return null;
+        return scheduleRepository.findScheduleById(scheduleId);
     }
 
     public Optional<User> getUserById(String userId)
     {
-        return null;
+        return userRepository.findUserById(userId);
     }
     //endregion
+
+
 }
