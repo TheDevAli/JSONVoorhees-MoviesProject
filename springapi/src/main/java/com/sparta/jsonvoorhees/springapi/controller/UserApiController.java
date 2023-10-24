@@ -18,29 +18,29 @@ public class UserApiController {
         this.serviceLayer = serviceLayer;
     }
 
-//    @GetMapping("/api/users/getUsers")
-//    public List<User> getUsers(@RequestParam(name = "query", required = false) String query) {
-//        return serviceLayer.getAllUsersByName(query);
-//    }
-//
-//    @GetMapping("/api/users/getUser/{id}")
-//    public Optional<User> getUserById(@PathVariable String id) {
-//        return serviceLayer.getUserById(id);
-//    }
-//
-//    @PostMapping("/api/users")
-//    public String createUser(@RequestBody User user) {
-//        return serviceLayer.createUser(user);
-//    }
-//
-//    @DeleteMapping("/api/users/{id}")
-//    public String deleteUser(@PathVariable String id) {
-//        return serviceLayer.deleteUser(id);
-//    }
-//
-//    @PatchMapping("/api/users/{id}")
-//    public Movie updateUser(@RequestBody User user, @PathVariable Integer id) {
-//        return serviceLayer.updateUser(id, user);
-//    }
+    @GetMapping("/api/users/getUsers")
+    public List<User> getUsers() {
+        return serviceLayer.getAllUsers();
+    }
+
+    @GetMapping("/api/users/getUser/{id}")
+    public Optional<User> getUserById(@PathVariable String id) {
+        return serviceLayer.getUserById(id);
+    }
+
+    @PostMapping("/api/users")
+    public User createUser(@RequestBody User user) {
+        return serviceLayer.addUser(user);
+    }
+
+    @DeleteMapping("/api/users/{id}")
+    public void deleteUser(@PathVariable String id) {
+        serviceLayer.deleteUserById(id);
+    }
+
+    @PatchMapping("/api/users/{id}")
+    public User updateUser(@RequestBody User user) {
+        return serviceLayer.updateUser(user);
+    }
 
 }
