@@ -24,7 +24,7 @@ public class EmbeddedMovie {
   private String plot;
   private String plotEmbedding;
   private String rated;
-  private java.sql.Date released;
+  private java.util.Date released;
   private long runtime;
   private String title;
   private String tomatoes;
@@ -32,9 +32,9 @@ public class EmbeddedMovie {
   private long tomatoes_Critic_Meter;
   private long tomatoes_Critic_NumReviews;
   private double tomatoes_Critic_Rating;
-  private java.sql.Date tomatoes_Dvd;
+  private java.util.Date tomatoes_Dvd;
   private long tomatoes_Fresh;
-  private java.sql.Date tomatoes_LastUpdated;
+  private java.util.Date tomatoes_LastUpdated;
   private String tomatoes_Production;
   private long tomatoes_Rotten;
   private String tomatoes_Viewer;
@@ -219,11 +219,11 @@ public class EmbeddedMovie {
   }
 
 
-  public java.sql.Date getReleased() {
+  public java.util.Date getReleased() {
     return released;
   }
 
-  public void setReleased(java.sql.Date released) {
+  public void setReleased(java.util.Date released) {
     this.released = released;
   }
 
@@ -291,11 +291,11 @@ public class EmbeddedMovie {
   }
 
 
-  public java.sql.Date getTomatoes_Dvd() {
+  public java.util.Date getTomatoes_Dvd() {
     return tomatoes_Dvd;
   }
 
-  public void setTomatoes_Dvd(java.sql.Date tomatoes_Dvd) {
+  public void setTomatoes_Dvd(java.util.Date tomatoes_Dvd) {
     this.tomatoes_Dvd = tomatoes_Dvd;
   }
 
@@ -309,11 +309,11 @@ public class EmbeddedMovie {
   }
 
 
-  public java.sql.Date getTomatoes_LastUpdated() {
+  public java.util.Date getTomatoes_LastUpdated() {
     return tomatoes_LastUpdated;
   }
 
-  public void setTomatoes_LastUpdated(java.sql.Date tomatoes_LastUpdated) {
+  public void setTomatoes_LastUpdated(java.util.Date tomatoes_LastUpdated) {
     this.tomatoes_LastUpdated = tomatoes_LastUpdated;
   }
 

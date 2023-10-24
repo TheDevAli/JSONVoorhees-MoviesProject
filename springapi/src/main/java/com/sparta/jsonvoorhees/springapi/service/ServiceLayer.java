@@ -114,9 +114,11 @@ public class ServiceLayer {
     //region Savers
     //@TODO: Look into having these return something to indicate success
 
-    public void saveComment(Comment newComment)
+    public Comment saveComment(Comment newComment)
     {
-        commentRepository.save(newComment);
+        // Save creates new entity if it doesn't exist, updates existing one if it does
+        Comment result = commentRepository.save(newComment);
+        return result;
     }
 
     public void saveMovie(Movie newMovie)
@@ -124,9 +126,10 @@ public class ServiceLayer {
         movieRepository.save(newMovie);
     }
 
-    public void saveSchedule(Schedule newSchedule)
+    public Schedule saveSchedule(Schedule newSchedule)
     {
-        scheduleRepository.save(newSchedule);
+        Schedule result = scheduleRepository.save(newSchedule);
+        return result;
     }
 
     public void saveTheater(Theater newTheater)
@@ -159,5 +162,5 @@ public class ServiceLayer {
         }
         return selectedComments;
     }
-    //endregion
+
 }

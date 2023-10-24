@@ -19,26 +19,26 @@ public class CommentApiController {
         this.serviceLayer = serviceLayer;
     }
 
-    @GetMapping("/api/comments/getAllComments/{movieId}")
+    @GetMapping("/api/comments/getAllCommentsByMovieId/{movieId}")
     public List<Comment> getAllCommentsByMovieId(@PathVariable String movieId) {
         return serviceLayer.getCommentsByMovie(movieId);
     }
 
-    @GetMapping("/api/comments/getAllComments/{userId}")
+    @GetMapping("/api/comments/getAllCommentsByUserId/{userId}")
     public List<Comment> getAllCommentsByUserId(@PathVariable String userId) {
         return serviceLayer.getCommentsByUser(userId);
     }
 
-//    @GetMapping("/api/comments/getComment/{id}")
-//    public Optional<Comment> getCommentById(@PathVariable String id) {
-//        return serviceLayer.getCommentsById(id);
-//    }
-//
-//    @PostMapping("/api/comments")
-//    public String createComment(@RequestBody Comment comment) {
-//        return serviceLayer.createComment(comment);
-//    }
-//
+    @GetMapping("/api/comments/getComment/{id}")
+    public Optional<Comment> getCommentById(@PathVariable String id) {
+        return serviceLayer.getCommentById(id);
+    }
+
+    @PostMapping("/api/comments")
+    public Comment createComment(@RequestBody Comment comment) {
+        return serviceLayer.saveComment(comment);
+    }
+
 //    @DeleteMapping("/api/comments/{id}")
 //    public String deleteComment(@PathVariable String id) {
 //        return serviceLayer.deleteComment(id);
