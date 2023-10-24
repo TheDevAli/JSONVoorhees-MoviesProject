@@ -61,10 +61,6 @@ public class ServiceLayer {
         return commentRepository.findCommentsByNameContains(name);
     }
 
-    public List<Theater> getAllTheaters()
-    {
-        return theaterRepository.findAll();
-    }
 
     //region Basic Getters
     public Optional<Movie> getMovieById(String movieId)
@@ -92,6 +88,27 @@ public class ServiceLayer {
     {
         return commentRepository.findCommentById(commentId);
     }
+
+    public List<User> getAllUsers()
+    {
+        return userRepository.findAll();
+    }
+    
+    public List<Schedule> getAllSchedules()
+    {
+        return scheduleRepository.findAll();
+    }
+    
+    public List<Comment> getAllComments()
+    {
+        return commentRepository.findAll();
+    }
+
+    public List<Theater> getAllTheaters()
+    {
+        return theaterRepository.findAll();
+    }
+
     //endregion
 
     //region Savers
@@ -124,9 +141,23 @@ public class ServiceLayer {
     //endregion
 
     //region Special Getters
-    public List<User> getAllUsers()
+    public List<Comment> getCommentsWithSpecifiedWords(List<String> wordsToSearchFor)
     {
-        return userRepository.findAll();
+        List<Comment> selectedComments = new ArrayList<Comment>();
+        List<Comment> allComments = commentRepository.findAll();
+        for (Comment comment:allComments)
+        {
+            String contents = comment.getText().toLowerCase();
+            String[] wordsInContent = contents.trim().split("\\s+");
+            for (String word: wordsInContent)
+            {
+                if (wordsToSearchFor.contains(word) && !selectedComments.contains(comment))
+                {
+                    selectedComments.add(comment);
+                }
+            }
+        }
+        return selectedComments;
     }
     //endregion
 }
