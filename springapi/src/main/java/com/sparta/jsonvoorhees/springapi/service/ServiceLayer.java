@@ -117,7 +117,10 @@ public class ServiceLayer {
         theaterRepository.save(newTheater);
     }
 
-
+    public void saveUser(User newUser)
+    {
+        userRepository.save(newUser);
+    }
     //endregion
 
     //region Special Getters
