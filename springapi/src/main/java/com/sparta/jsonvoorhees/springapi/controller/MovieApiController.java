@@ -3,22 +3,45 @@ package com.sparta.jsonvoorhees.springapi.controller;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
 import com.sparta.jsonvoorhees.springapi.model.repositories.MovieRepository;
 import com.sparta.jsonvoorhees.springapi.service.ApiLibraryService;
+import com.sparta.jsonvoorhees.springapi.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MovieApiController {
-    private final ApiLibraryService apiLibraryService;
+    private final ServiceLayer serviceLayer;
 
     @Autowired
-    public MovieApiController(ApiLibraryService apiLibraryService) {
-        this.apiLibraryService = apiLibraryService;
+    public MovieApiController(ServiceLayer serviceLayer) {
+        this.serviceLayer = serviceLayer;
     }
 
     @GetMapping("/api/movies/getMovies")
-    public List<Movie> getMovies() {return apiLibraryService.getMovieRepository().findAll();}
+    public List<Movie> getMovies(@RequestParam(name = "query", required = false)String query) {
+        return serviceLayer.getAllMoviesWithTitle(query);
+    }
+
+//    @GetMapping("/api/movies/getMovie/{id}")
+//    public Optional<Movie> getMovieById(@PathVariable String id) {
+//        return serviceLayer.getMovieById(id);
+//    }
+//
+//    @PostMapping("/api/movies")
+//    public String createMovie(@RequestBody Movie movie) {
+//        return serviceLayer.createMovie(movie);
+//    }
+//
+//    @DeleteMapping("/api/movies/{id}")
+//    public String deleteMovie(@PathVariable String id) {
+//        return serviceLayer.deleteMovie(id);
+//    }
+//
+//    @PatchMapping("/api/movies/{id}")
+//    public Movie updateMovie(@RequestBody Movie movie, @PathVariable Integer id) {
+//        return serviceLayer.updateMovie(id, movie);
+//    }
+
 }
