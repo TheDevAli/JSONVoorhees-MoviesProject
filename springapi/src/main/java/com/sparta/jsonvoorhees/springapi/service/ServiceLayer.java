@@ -5,8 +5,10 @@ import com.sparta.jsonvoorhees.springapi.model.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceLayer {
@@ -44,4 +46,46 @@ public class ServiceLayer {
             return filteredMovies;
         }
     }
+
+    public List<Schedule> getSchedulesForTheaters(String theaterId)
+    {
+        return null;
+    }
+
+    public List<Comment> getCommentsByMovie(String movieId)
+    {
+        return null;
+    }
+
+    public List<Comment> getCommentsByUser(String userId)
+    {
+        return null;
+    }
+
+    public List<Theater> getAllTheaters()
+    {
+        return null;
+    }
+
+    //region Basic Getters
+    public Optional<Movie> getMovieById(String movieId)
+    {
+        return null;
+    }
+
+    public Optional<Theater> getTheaterById(String theaterId)
+    {
+        return null;
+    }
+
+    public Optional<Schedule> getScheduleById(String scheduleId)
+    {
+        return null;
+    }
+
+    public Optional<User> getUserById(String userId)
+    {
+        return null;
+    }
+    //endregion
 }
