@@ -24,16 +24,16 @@ public class MovieApiController {
         return serviceLayer.getAllMoviesWithTitle(query);
     }
 
-//    @GetMapping("/api/movies/getMovie/{id}")
-//    public Optional<Movie> getMovieById(@PathVariable String id) {
-//        return serviceLayer.getMovieById(id);
-//    }
-//
+    @GetMapping("/api/movies/getMovie/{id}")
+    public Optional<Movie> getMovieById(@PathVariable String id) {
+        return serviceLayer.getMovieById(id);
+    }
+
 //    @PostMapping("/api/movies")
 //    public String createMovie(@RequestBody Movie movie) {
-//        return serviceLayer.createMovie(movie);
+//        return serviceLayer.addMovie(movie);
 //    }
-//
+
 //    @DeleteMapping("/api/movies/{id}")
 //    public String deleteMovie(@PathVariable String id) {
 //        return serviceLayer.deleteMovie(id);

@@ -115,10 +115,13 @@ public class ServiceLayer {
     //@TODO: Look into having these return something to indicate success
     //These appear to return the object that is saved?
 
-    public Comment updateComment(Comment newComment)
+    public Comment updateComment(String id, Comment newComment)
     {
         // Save creates new entity if it doesn't exist, updates existing one if it does
-        return commentRepository.save(newComment);
+        Comment comment = commentRepository.findCommentById(id).get();
+        comment.setText(newComment.getText());
+        //Set date to today?
+        return commentRepository.save(comment);
     }
 
     public Movie updateMovie(Movie newMovie)
@@ -164,9 +167,14 @@ public class ServiceLayer {
     //endregion
 
     //region Deleters
-    public void deleteCommentById(String id)
+    public String deleteCommentById(String id)
     {
+        if (commentRepository.findCommentById(id).isEmpty()) {
+            //Throw an exception here
+             return "Comment Not Found";
+        }
         commentRepository.deleteById(id);
+        return "Comment Deleted";
     }
 
     public void deleteMovieById(String id)

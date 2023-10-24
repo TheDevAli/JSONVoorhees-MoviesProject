@@ -39,14 +39,14 @@ public class CommentApiController {
         return serviceLayer.addComment(comment);
     }
 
-//    @DeleteMapping("/api/comments/{id}")
-//    public String deleteComment(@PathVariable String id) {
-//        return serviceLayer.deleteComment(id);
-//    }
-//
-//    @PatchMapping("/api/comments/{id}")
-//    public Movie updateComment(@RequestBody Comment comment, @PathVariable Integer id) {
-//        return serviceLayer.updateComment(id, comment);
-//    }
+    @DeleteMapping("/api/comments/{id}")
+    public String deleteComment(@PathVariable String id) {
+        return serviceLayer.deleteCommentById(id);
+    }
+
+    @PatchMapping("/api/comments/{id}")
+    public Comment updateComment(@RequestBody Comment comment, @PathVariable String id) {
+        return serviceLayer.updateComment(id, comment);
+    }
 
 }
