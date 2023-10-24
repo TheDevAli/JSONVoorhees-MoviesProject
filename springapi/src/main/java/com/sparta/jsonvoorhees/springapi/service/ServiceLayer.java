@@ -49,22 +49,22 @@ public class ServiceLayer {
 
     public List<Schedule> getSchedulesForTheaters(String theaterId)
     {
-        return null;
+        return scheduleRepository.findSchedulesByTheaterId(theaterId);
     }
 
     public List<Comment> getCommentsByMovie(String movieId)
     {
-        return null;
+        return commentRepository.findCommentsByMovieId(movieId);
     }
 
-    public List<Comment> getCommentsByUser(String userId)
+    public List<Comment> getCommentsByUser(String name)
     {
-        return null;
+        return commentRepository.findCommentsByNameContains(name);
     }
 
     public List<Theater> getAllTheaters()
     {
-        return null;
+        return theaterRepository.findAll();
     }
 
     //region Basic Getters
@@ -87,6 +87,11 @@ public class ServiceLayer {
     public Optional<User> getUserById(String userId)
     {
         return userRepository.findUserById(userId);
+    }
+
+    public Optional<Comment> getCommentById(String commentId)
+    {
+        return commentRepository.findCommentById(commentId);
     }
     //endregion
 
