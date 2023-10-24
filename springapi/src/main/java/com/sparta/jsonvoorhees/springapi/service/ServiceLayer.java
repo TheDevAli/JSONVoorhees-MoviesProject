@@ -5,7 +5,6 @@ import com.sparta.jsonvoorhees.springapi.model.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -95,5 +94,36 @@ public class ServiceLayer {
     }
     //endregion
 
+    //region Savers
+    //@TODO: Look into having these return something to indicate success
 
+    public void saveComment(Comment newComment)
+    {
+        commentRepository.save(newComment);
+    }
+
+    public void saveMovie(Movie newMovie)
+    {
+        movieRepository.save(newMovie);
+    }
+
+    public void saveSchedule(Schedule newSchedule)
+    {
+        scheduleRepository.save(newSchedule);
+    }
+
+    public void saveTheater(Theater newTheater)
+    {
+        theaterRepository.save(newTheater);
+    }
+
+
+    //endregion
+
+    //region Special Getters
+    public List<User> getAllUsers()
+    {
+        return userRepository.findAll();
+    }
+    //endregion
 }
