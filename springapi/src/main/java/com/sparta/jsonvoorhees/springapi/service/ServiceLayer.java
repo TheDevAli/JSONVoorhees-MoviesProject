@@ -113,6 +113,7 @@ public class ServiceLayer {
 
     //region Savers
     //@TODO: Look into having these return something to indicate success
+    //These appear to return the object that is saved?
 
     public void saveComment(Comment newComment)
     {
@@ -158,6 +159,34 @@ public class ServiceLayer {
             }
         }
         return selectedComments;
+    }
+    //endregion
+
+    //region Deleters
+    public void deleteCommentById(String id)
+    {
+        commentRepository.deleteById(id);
+    }
+
+    public void deleteMovieById(String id)
+    {
+        movieRepository.deleteById(id);
+    }
+
+    public void deleteScheduleById(String id)
+    {
+        scheduleRepository.deleteById(id);
+    }
+
+    public void deleteTheaterById(String id)
+    {
+        theaterRepository.deleteById(id);
+    }
+
+    //@Todo This is still up for debate
+    public void deleteUserById(String id)
+    {
+        userRepository.deleteById(id);
     }
     //endregion
 }
