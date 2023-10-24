@@ -120,11 +120,11 @@ public class ServiceLayer {
         // Save creates new entity if it doesn't exist, updates existing one if it does
         Comment comment = commentRepository.findCommentById(id).get();
         comment.setText(newComment.getText());
-        //Set date to today?
+        //Set date to today because it updated NOW?
         return commentRepository.save(comment);
     }
 
-    public Movie updateMovie(Movie newMovie)
+    public Movie updateMovie(String id, Movie newMovie)
     {
         return movieRepository.save(newMovie);
     }
@@ -177,9 +177,14 @@ public class ServiceLayer {
         return "Comment Deleted";
     }
 
-    public void deleteMovieById(String id)
+    public String deleteMovieById(String id)
     {
+        if (movieRepository.findMovieById(id).isEmpty()) {
+            //Exception
+            return "Movie not Found";
+        }
         movieRepository.deleteById(id);
+        return "Movie Deleted";
     }
 
     public void deleteScheduleById(String id)

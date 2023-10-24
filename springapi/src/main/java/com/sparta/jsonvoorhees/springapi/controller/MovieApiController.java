@@ -29,19 +29,19 @@ public class MovieApiController {
         return serviceLayer.getMovieById(id);
     }
 
-//    @PostMapping("/api/movies")
-//    public String createMovie(@RequestBody Movie movie) {
-//        return serviceLayer.addMovie(movie);
-//    }
+    @PostMapping("/api/movies")
+    public Movie createMovie(@RequestBody Movie movie) {
+        return serviceLayer.addMovie(movie);
+    }
 
-//    @DeleteMapping("/api/movies/{id}")
-//    public String deleteMovie(@PathVariable String id) {
-//        return serviceLayer.deleteMovie(id);
-//    }
-//
-//    @PatchMapping("/api/movies/{id}")
-//    public Movie updateMovie(@RequestBody Movie movie, @PathVariable Integer id) {
-//        return serviceLayer.updateMovie(id, movie);
-//    }
+    @DeleteMapping("/api/movies/{id}")
+    public String deleteMovie(@PathVariable String id) {
+        return serviceLayer.deleteMovieById(id);
+    }
+
+    @PatchMapping("/api/movies/{id}")
+    public Movie updateMovie(@RequestBody Movie movie, @PathVariable String id) {
+        return serviceLayer.updateMovie(id, movie);
+    }
 
 }
