@@ -113,30 +113,35 @@ public class ServiceLayer {
 
     //region Savers
     //@TODO: Look into having these return something to indicate success
+    //These appear to return the object that is saved?
 
-    public void saveComment(Comment newComment)
+    public Comment updateComment(String id, Comment newComment)
     {
-        commentRepository.save(newComment);
+        // Save creates new entity if it doesn't exist, updates existing one if it does
+        Comment comment = commentRepository.findCommentById(id).get();
+        comment.setText(newComment.getText());
+        //Set date to today because it updated NOW?
+        return commentRepository.save(comment);
     }
 
-    public void saveMovie(Movie newMovie)
+    public Movie updateMovie(String id, Movie newMovie)
     {
-        movieRepository.save(newMovie);
+        return movieRepository.save(newMovie);
     }
 
-    public void saveSchedule(Schedule newSchedule)
+    public Schedule updateSchedule(Schedule newSchedule)
     {
-        scheduleRepository.save(newSchedule);
+        return scheduleRepository.save(newSchedule);
     }
 
-    public void saveTheater(Theater newTheater)
+    public Theater updateTheater(Theater newTheater)
     {
-        theaterRepository.save(newTheater);
+        return theaterRepository.save(newTheater);
     }
 
-    public void saveUser(User newUser)
+    public User updateUser(User newUser)
     {
-        userRepository.save(newUser);
+        return userRepository.save(newUser);
     }
     //endregion
 
@@ -158,6 +163,98 @@ public class ServiceLayer {
             }
         }
         return selectedComments;
+    }
+    //endregion
+
+    //region Deleters
+    public String deleteCommentById(String id)
+    {
+        if (commentRepository.findCommentById(id).isEmpty()) {
+            //Throw an exception here
+             return "Comment Not Found";
+        }
+        commentRepository.deleteById(id);
+        return "Comment Deleted";
+    }
+
+    public String deleteMovieById(String id)
+    {
+        if (movieRepository.findMovieById(id).isEmpty()) {
+            //Exception
+            return "Movie not Found";
+        }
+        movieRepository.deleteById(id);
+        return "Movie Deleted";
+    }
+
+    public void deleteScheduleById(String id)
+    {
+        scheduleRepository.deleteById(id);
+    }
+
+    public void deleteTheaterById(String id)
+    {
+        theaterRepository.deleteById(id);
+    }
+
+    //@Todo This is still up for debate
+    public void deleteUserById(String id)
+    {
+        userRepository.deleteById(id);
+    }
+    //endregion
+
+    //region Creators
+    //Some of these are the same as the savers, as a save with new data adds it
+
+    public Comment addComment(Comment newComment)
+    {
+        return commentRepository.save(newComment);
+    }
+
+    public Movie addMovie(Movie newMovie)
+    {
+        return movieRepository.save(newMovie);
+    }
+
+    public Schedule addSchedule(Schedule newSchedule)
+    {
+        return scheduleRepository.save(newSchedule);
+    }
+
+    public Theater addTheater(Theater newTheater)
+    {
+        return theaterRepository.save(newTheater);
+    }
+
+    public User addUser(User newUser)
+    {
+        return userRepository.save(newUser);
+    }
+
+    public void addComments(List<Comment> newComments)
+    {
+        commentRepository.insert(newComments);
+    }
+
+    public void addMovies(List<Movie> newMovies)
+    {
+        movieRepository.insert(newMovies);
+    }
+
+    public void addSchedules(List<Schedule> newSchedules)
+    {
+        scheduleRepository.insert(newSchedules);
+    }
+
+    public void addTheaters(List<Theater> newTheaters)
+    {
+        theaterRepository.insert(newTheaters);
+    }
+
+    public void addUsers(List<User> newUsers)
+    {
+        userRepository.insert(newUsers);
     }
     //endregion
 }
