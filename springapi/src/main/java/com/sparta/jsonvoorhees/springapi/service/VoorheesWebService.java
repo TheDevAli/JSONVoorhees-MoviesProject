@@ -4,10 +4,12 @@ package com.sparta.jsonvoorhees.springapi.service;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
 import com.sparta.jsonvoorhees.springapi.model.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VoorheesWebService {
@@ -27,10 +29,10 @@ public class VoorheesWebService {
         this.userRepository = userRepository;
     }
 
-    public List<Movie> getAllMoviesWithTitle(String title) {
-        List<Movie> fullMovieList = movieRepository.findAll();
+    public List<Movie> getAllMoviesWithTitle(String title, PageRequest pageRequest) {
+        List<Movie> fullMovieList = movieRepository.findAll(pageRequest).toList();
         if (title == null) {
-            return movieRepository.findAll();
+            return fullMovieList;
         }
         else {
             List<Movie> filteredMovies = new ArrayList<>();

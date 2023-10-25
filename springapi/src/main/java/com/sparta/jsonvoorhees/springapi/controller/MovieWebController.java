@@ -2,9 +2,12 @@ package com.sparta.jsonvoorhees.springapi.controller;
 
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
 import com.sparta.jsonvoorhees.springapi.service.ServiceLayer;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 public class MovieWebController {
@@ -15,8 +18,15 @@ public class MovieWebController {
     }
 
     @GetMapping("/web/movies")
-    public String getAllMovies(Model model, @RequestParam(name = "title", required = false) String title) {
-        model.addAttribute("movies", serviceLayer.getAllMoviesWithTitle(title));
+    public String getAllMovies(Model model,
+                               @RequestParam(name = "title", required = false) String title,
+                               @RequestParam(name="page", required = false) Optional<Integer> page,
+                               @RequestParam(name="pageSize", required = false) Optional<Integer> pageSize) {
+
+        model.addAttribute("movies", serviceLayer.getAllMoviesWithTitle(title,
+                PageRequest.of(
+                        page.orElse(1)-1,
+                        pageSize.orElse(50))));
         return "/movies/movies";
     }
 
