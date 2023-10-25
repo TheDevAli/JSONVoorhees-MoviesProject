@@ -74,7 +74,7 @@ public class TheaterWebController {
 
     @PostMapping("/web/deleteTheater")
     public String deleteTheater(@ModelAttribute("theaterToDelete") Theater theater) {
-        serviceLayer.deleteTheaterById(theater.getId());
+        serviceLayer.deleteTheaterById(theater.getTheaterId());
         return "delete-success";
     }
 }
