@@ -1,13 +1,15 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
+import com.sparta.jsonvoorhees.springapi.model.entities.Comment;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
 import com.sparta.jsonvoorhees.springapi.service.ServiceLayer;
-import org.springframework.data.domain.PageRequest;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.time.Instant;
+import java.util.Date;
 
 @Controller
 public class MovieWebController {
@@ -18,29 +20,34 @@ public class MovieWebController {
     }
 
     @GetMapping("/web/movies")
-    public String getAllMovies(Model model,
-                               @RequestParam(name = "title", required = false) String title,
-                               @RequestParam(name="page", required = false) Optional<Integer> page,
-                               @RequestParam(name="pageSize", required = false) Optional<Integer> pageSize) {
-
-        model.addAttribute("movies", serviceLayer.getAllMoviesWithTitle(title,
-                PageRequest.of(
-                        page.orElse(1)-1,
-                        pageSize.orElse(50))));
-        return "/movies/movies";
+    public String getAllMovies(Model model, @RequestParam(name = "title", required = false) String title) {
+        model.addAttribute("movies", serviceLayer.getAllMoviesWithTitle(title));
+        return "movies/movies";
     }
 
     @GetMapping("/web/movie/{id}")
     public String getMovieById(Model model, @PathVariable String id) {
         model.addAttribute("movie", serviceLayer.getMovieById(id).get());
         model.addAttribute("comments",serviceLayer.getCommentsByMovie(id));
-        return "/movies/movie";
+
+        Comment comment = new Comment();
+        ObjectId objId = new ObjectId(id);
+        comment.setMovieId(objId);
+        model.addAttribute("commentToCreate",comment);
+        return "movies/movie";
+    }
+
+    @PostMapping("/web/movie/createComment/{movieId}")
+    public String createComment(Model model, @PathVariable String movieId, @ModelAttribute("commentToCreate") Comment comment) {
+        model.addAttribute("movie", serviceLayer.getMovieById(movieId));
+        serviceLayer.addComment(comment);
+        return "movies/comment-added";
     }
 
     @GetMapping("/web/movie/create")
     public String getCreateForm(Model model) {
         model.addAttribute("movieToCreate",new Movie());
-        return "/movies/movie-create-form";
+        return "movies/movie-create-form";
     }
 
     @PostMapping("/web/createMovie")
@@ -52,7 +59,7 @@ public class MovieWebController {
     @GetMapping("/web/movie/edit/{id}")
     public String getEditForm(Model model, @PathVariable String id) {
         model.addAttribute("movieToEdit", serviceLayer.getMovieById(id).orElse(null));
-        return "/movies/movie-edit-form";
+        return "movies/movie-edit-form";
     }
 
     @PostMapping("/web/updateMovie")
@@ -70,7 +77,7 @@ public class MovieWebController {
     @GetMapping("/web/movie/delete/{id}")
     public String getDeleteForm(Model model, @PathVariable String id) {
         model.addAttribute("movieToDelete", serviceLayer.getMovieById(id).orElse(null));
-        return "/movies/movie-delete-form";
+        return "movies/movie-delete-form";
     }
 
     @PostMapping("/web/deleteMovie")

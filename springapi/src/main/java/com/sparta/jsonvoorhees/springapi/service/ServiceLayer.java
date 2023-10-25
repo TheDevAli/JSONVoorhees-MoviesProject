@@ -82,7 +82,7 @@ public class ServiceLayer {
     public Optional<Theater> getTheaterById(String theaterId)
     {
         //@TODO: Check this one
-        return theaterRepository.findTheaterByTheaterId(Long.valueOf(theaterId));
+        return theaterRepository.findTheaterById(theaterId);
     }
 
     public Optional<Schedule> getScheduleById(String scheduleId)
