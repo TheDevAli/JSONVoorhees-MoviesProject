@@ -37,7 +37,7 @@ public class TheatreApiController {
     //@Todo Discuss this and its service layer implementation with team
     // uses Long id is this okay?
     @DeleteMapping("/api/theaters/{id}")
-    public String deleteTheater(@PathVariable Long id) {
+    public String deleteTheater(@PathVariable String id) {
         return serviceLayer.deleteTheaterById(id);
     }
 
