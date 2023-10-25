@@ -1,6 +1,7 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
 import com.sparta.jsonvoorhees.springapi.exceptions.CommentNotFoundException;
+import com.sparta.jsonvoorhees.springapi.exceptions.UserBodyNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.UserNotFoundException;
 import com.sparta.jsonvoorhees.springapi.model.entities.Comment;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
@@ -36,7 +37,10 @@ public class UserApiController {
     }
 
     @PostMapping("/api/users")
-    public User createUser(@RequestBody User user) {
+    public User createUser(@RequestBody User user) throws UserBodyNotFoundException {
+        if(user.getName().isEmpty() || user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
+            throw new UserBodyNotFoundException();
+        }
         return serviceLayer.addUser(user);
     }
 

@@ -1,5 +1,6 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
+import com.sparta.jsonvoorhees.springapi.exceptions.MovieBodyNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.MovieNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.MovieTitleNotFoundException;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
@@ -40,7 +41,10 @@ public class MovieApiController {
     }
 
     @PostMapping("/api/movies")
-    public Movie createMovie(@RequestBody Movie movie) {
+    public Movie createMovie(@RequestBody Movie movie) throws MovieBodyNotFoundException {
+        if(movie.getTitle().isEmpty()) {
+            throw new MovieBodyNotFoundException();
+        }
         return serviceLayer.addMovie(movie);
     }
 

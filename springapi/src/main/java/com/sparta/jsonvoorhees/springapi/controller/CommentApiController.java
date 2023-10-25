@@ -1,5 +1,6 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
+import com.sparta.jsonvoorhees.springapi.exceptions.CommentBodyNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.CommentNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.MovieNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.UserNotFoundException;
@@ -51,7 +52,10 @@ public class CommentApiController {
     }
 
     @PostMapping("/api/comments")
-    public Comment createComment(@RequestBody Comment comment) {
+    public Comment createComment(@RequestBody Comment comment) throws CommentBodyNotFoundException {
+        if(comment.getText().isEmpty()) {
+            throw new CommentBodyNotFoundException();
+        }
         return serviceLayer.addComment(comment);
     }
 

@@ -1,7 +1,6 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
-import com.sparta.jsonvoorhees.springapi.exceptions.TheaterNotFoundException;
-import com.sparta.jsonvoorhees.springapi.exceptions.UserNotFoundException;
+import com.sparta.jsonvoorhees.springapi.exceptions.*;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
 import com.sparta.jsonvoorhees.springapi.model.entities.Theater;
 import com.sparta.jsonvoorhees.springapi.model.entities.User;
@@ -36,7 +35,7 @@ public class TheatreApiController {
     }
 
     @PostMapping("/api/theaters")
-    public Theater createTheater(@RequestBody Theater theater) {
+    public Theater createTheater(@RequestBody Theater theater) throws TheaterBodyNotFoundException, TheaterExistsException {
         return serviceLayer.addTheater(theater);
     }
 

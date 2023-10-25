@@ -1,5 +1,6 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
+import com.sparta.jsonvoorhees.springapi.exceptions.ScheduleBodyNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.ScheduleNotFoundException;
 import com.sparta.jsonvoorhees.springapi.exceptions.TheaterNotFoundException;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
@@ -32,7 +33,10 @@ public class ScheduleApiController {
     }
 
     @PostMapping("/api/schedules")
-    public Schedule createSchedule(@RequestBody Schedule schedule) {
+    public Schedule createSchedule(@RequestBody Schedule schedule) throws ScheduleBodyNotFoundException {
+        if(schedule.getMovieId().isEmpty() || schedule.getTheaterId().isEmpty()) {
+            throw new ScheduleBodyNotFoundException();
+        }
         return serviceLayer.addSchedule(schedule);
     }
 
