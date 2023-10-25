@@ -29,19 +29,21 @@ public class TheatreApiController {
         return serviceLayer.getTheaterById(id);
     }
 
-//    @PostMapping("/api/theaters")
-//    public String createTheater(@RequestBody Theater theater) {
-//        return serviceLayer.createTheater(theater);
-//    }
-//
-//    @DeleteMapping("/api/theaters/{id}")
-//    public String deleteTheater(@PathVariable String id) {
-//        return serviceLayer.deleteTheater(id);
-//    }
-//
-//    @PatchMapping("/api/theaters/{id}")
-//    public Movie updateTheater(@RequestBody Theater theater, @PathVariable Integer id) {
-//        return serviceLayer.updateTheater(id, theater);
-//    }
+    @PostMapping("/api/theaters")
+    public Theater createTheater(@RequestBody Theater theater) {
+        return serviceLayer.addTheater(theater);
+    }
+
+    //@Todo Discuss this and its service layer implementation with team
+    // uses Long id is this okay?
+    @DeleteMapping("/api/theaters/{id}")
+    public String deleteTheater(@PathVariable Long id) {
+        return serviceLayer.deleteTheaterById(id);
+    }
+
+    @PatchMapping("/api/theaters")
+    public Theater updateTheater(@RequestBody Theater theater) {
+        return serviceLayer.updateTheater(theater);
+    }
 
 }

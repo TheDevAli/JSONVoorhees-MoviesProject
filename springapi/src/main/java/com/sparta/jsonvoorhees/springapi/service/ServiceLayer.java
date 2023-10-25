@@ -115,16 +115,13 @@ public class ServiceLayer {
     //@TODO: Look into having these return something to indicate success
     //These appear to return the object that is saved?
 
-    public Comment updateComment(String id, Comment newComment)
+    public Comment updateComment(Comment newComment)
     {
         // Save creates new entity if it doesn't exist, updates existing one if it does
-        Comment comment = commentRepository.findCommentById(id).get();
-        comment.setText(newComment.getText());
-        //Set date to today because it updated NOW?
-        return commentRepository.save(comment);
+        return commentRepository.save(newComment);
     }
 
-    public Movie updateMovie(String id, Movie newMovie)
+    public Movie updateMovie(Movie newMovie)
     {
         return movieRepository.save(newMovie);
     }
@@ -187,14 +184,27 @@ public class ServiceLayer {
         return "Movie Deleted";
     }
 
-    public void deleteScheduleById(String id)
+    public String deleteScheduleById(String id)
     {
+        if (scheduleRepository.findScheduleById(id).isEmpty()) {
+            //Exception
+            return "Movie not Found";
+        }
         scheduleRepository.deleteById(id);
+        return "Schedule Deleted";
     }
 
-    public void deleteTheaterById(String id)
+    //@Todo Discuss this with team, having to delete by the object itself
+    //Theater id is a Long...? Check this
+    public String deleteTheaterById(Long id)
     {
-        theaterRepository.deleteById(id);
+        Theater theaterToDelete = theaterRepository.findTheaterByTheaterId(id).get();
+        if (theaterRepository.findTheaterByTheaterId(id).isEmpty()) {
+            //Throw Exception
+            return "Theater Not Found";
+        }
+        theaterRepository.delete(theaterToDelete);
+        return "Theater Deleted";
     }
 
     //@Todo This is still up for debate

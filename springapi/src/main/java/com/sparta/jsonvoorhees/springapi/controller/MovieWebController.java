@@ -53,7 +53,7 @@ public class MovieWebController {
         existingMovie.setGenres(movie.getGenres());
         existingMovie.setRated(movie.getRated());
         existingMovie.setYear(movie.getYear());
-        serviceLayer.updateMovie(existingMovie.getId(), existingMovie);
+        serviceLayer.updateMovie(existingMovie);
         return "edit-success";
     }
 

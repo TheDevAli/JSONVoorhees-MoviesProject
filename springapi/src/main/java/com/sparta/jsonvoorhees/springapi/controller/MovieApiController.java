@@ -39,9 +39,9 @@ public class MovieApiController {
         return serviceLayer.deleteMovieById(id);
     }
 
-    @PatchMapping("/api/movies/{id}")
+    @PatchMapping("/api/movies/")
     public Movie updateMovie(@RequestBody Movie movie, @PathVariable String id) {
-        return serviceLayer.updateMovie(id, movie);
+        return serviceLayer.updateMovie(movie);
     }
 
 }

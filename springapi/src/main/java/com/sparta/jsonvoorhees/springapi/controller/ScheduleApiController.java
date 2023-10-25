@@ -29,14 +29,13 @@ public class ScheduleApiController {
         return serviceLayer.addSchedule(schedule);
     }
 
-//    @DeleteMapping("/api/schedules/{id}")
-//    public String deleteSchedule(@PathVariable String id) {
-//        return serviceLayer.deleteSchedule(id);
-//    }
-//
-//    @PatchMapping("/api/users/{id}")
-//    public Movie updateUser(@RequestBody User user, @PathVariable Integer id) {
-//        return serviceLayer.updateUser(id, user);
-//    }
+    @DeleteMapping("/api/schedules/{id}")
+    public String deleteSchedule(@PathVariable String id) {
+        return serviceLayer.deleteScheduleById(id);
+    }
 
+    @PatchMapping("/api/schedules")
+    public Schedule updateUser(@RequestBody Schedule schedule) {
+        return serviceLayer.updateSchedule(schedule);
+    }
 }

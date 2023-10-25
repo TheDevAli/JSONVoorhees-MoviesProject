@@ -44,9 +44,9 @@ public class CommentApiController {
         return serviceLayer.deleteCommentById(id);
     }
 
-    @PatchMapping("/api/comments/{id}")
-    public Comment updateComment(@RequestBody Comment comment, @PathVariable String id) {
-        return serviceLayer.updateComment(id, comment);
+    @PatchMapping("/api/comments")
+    public Comment updateComment(@RequestBody Comment comment) {
+        return serviceLayer.updateComment(comment);
     }
 
 }
