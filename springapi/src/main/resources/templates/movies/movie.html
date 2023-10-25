@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<h1>Movie</h1>
+<span th:if="${movie==null}">Film not found</span>
+<span th:unless="${movie==null}">
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Genre</th>
+            <th>Rating</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tr>
+            <td th:text="${movie.id}"></td>
+            <td th:text="${movie.title}"></td>
+            <td th:text="${movie.fullplot}"></td>
+            <td th:text="${movie.genres}"></td>
+            <td th:text="${movie.rated}"></td>
+            <td th:text="${movie.year}"></td>
+        </tr>
+    </table>
+</div>
+<br/>
+
+    <h2>Comments</h2>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Text</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+            <tr th:each="comment : ${comments}">
+                <td th:text="${comment.id}"></td>
+                <td th:text="${comment.text}"></td>
+                <td th:text="${comment.date}"></td>
+            </tr>
+    </table>
+</div>
+    <div>
+        <br/>
+        <button id="toggleButton" class="btn">Toggle Comments Form</button>
+        <form id="displayForm" th:action="@{'/web/movie/createComment/' + ${movie.id}}" th:object="${commentToCreate}" method="post">
+
+            <input type="hidden" id="movieId" name="id" th:field="*{movieId}"/>
+            <!--<input type="hidden" id="date" name="id" th:field="*{date}"/>-->
+
+            <label for="text">Text</label>
+            <input type="text" id="text" name="id" th:field="*{text}"/><br/>
+
+            <input class="inputSubmit" style="margin: 10px auto 10px" type="submit" value="Create"/>
+        </form>
+    </div>
+        </span>
+<script>
+    const toggleButton = document.getElementById('toggleButton');
+    const myForm = document.getElementById('displayForm');
+
+    toggleButton.addEventListener('click', function () {
+        if (myForm.style.display === 'none') {
+            myForm.style.display = 'table'; // Show the table
+        } else {
+            myForm.style.display = 'none'; // Hide the table
+        }
+    });
+</script>
+</body>
+</html>
