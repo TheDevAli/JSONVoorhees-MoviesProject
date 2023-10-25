@@ -50,9 +50,9 @@ public class UserWebController {
         return "/users/user-delete-form";
     }
 
-    //@PostMapping("/web/deleteUser")
-    //public String deleteUser(@ModelAttribute("userToDelete") User user) {
-    //    serviceLayer.deleteUser(user);
-    //    return "delete-success";
-    //}
+    @PostMapping("/web/deleteUser")
+    public String deleteUser(@ModelAttribute("userToDelete") User user) {
+        serviceLayer.deleteUserById(user.getId());
+        return "delete-success";
+    }
 }
