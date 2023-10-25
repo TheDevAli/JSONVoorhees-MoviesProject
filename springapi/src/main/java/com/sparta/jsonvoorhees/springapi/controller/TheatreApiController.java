@@ -1,5 +1,6 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
+import com.sparta.jsonvoorhees.springapi.exceptions.*;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
 import com.sparta.jsonvoorhees.springapi.model.entities.Theater;
 import com.sparta.jsonvoorhees.springapi.model.entities.User;
@@ -25,23 +26,34 @@ public class TheatreApiController {
     }
 
     @GetMapping("/api/theatres/getTheatre/{id}")
-    public Optional<Theater> getTheaterById(@PathVariable String id) {
+    public Optional<Theater> getTheaterById(@PathVariable String id) throws TheaterNotFoundException {
+        Optional<Theater> theaterById = serviceLayer.getTheaterById(id);
+        if (theaterById.isEmpty()){
+            throw new TheaterNotFoundException(id);
+        }
         return serviceLayer.getTheaterById(id);
     }
 
-//    @PostMapping("/api/theaters")
-//    public String createTheater(@RequestBody Theater theater) {
-//        return serviceLayer.createTheater(theater);
-//    }
-//
-//    @DeleteMapping("/api/theaters/{id}")
-//    public String deleteTheater(@PathVariable String id) {
-//        return serviceLayer.deleteTheater(id);
-//    }
-//
-//    @PatchMapping("/api/theaters/{id}")
-//    public Movie updateTheater(@RequestBody Theater theater, @PathVariable Integer id) {
-//        return serviceLayer.updateTheater(id, theater);
-//    }
+    @PostMapping("/api/theaters")
+    public Theater createTheater(@RequestBody Theater theater) throws TheaterBodyNotFoundException, TheaterExistsException {
+        return serviceLayer.addTheater(theater);
+    }
+
+    //@Todo Discuss this and its service layer implementation with team
+    // uses Long id is this okay?
+    //Todo 1)Why No path variable for patching 2)why long here but string everywhere else?
+    @DeleteMapping("/api/theaters/{id}")
+    public String deleteTheater(@PathVariable Long id) {
+        return serviceLayer.deleteTheaterById(id);
+    }
+
+    @PatchMapping("/api/theaters/{id}")
+    public Theater updateTheater(@RequestBody Theater theater, @PathVariable String id)  throws TheaterNotFoundException{
+        Optional<Theater> theaterById = serviceLayer.getTheaterById(id);
+        if (theaterById.isEmpty()){
+            throw new TheaterNotFoundException(id);
+        }
+        return serviceLayer.updateTheater(theater);
+    }
 
 }
