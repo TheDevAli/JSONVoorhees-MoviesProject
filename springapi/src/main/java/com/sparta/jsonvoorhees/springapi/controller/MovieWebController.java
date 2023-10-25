@@ -53,7 +53,7 @@ public class MovieWebController {
         existingMovie.setGenres(movie.getGenres());
         existingMovie.setRated(movie.getRated());
         existingMovie.setYear(movie.getYear());
-        serviceLayer.updateMovie("",existingMovie);
+        serviceLayer.updateMovie(existingMovie.getId(), existingMovie);
         return "edit-success";
     }
 
@@ -63,9 +63,9 @@ public class MovieWebController {
         return "/movies/movie-delete-form";
     }
 
-    //@PostMapping("/web/deleteMovie")
-    //public String deleteMovie(@ModelAttribute("movieToDelete") Movie movie) {
-    //    serviceLayer.deleteMovie(movie);
-    //    return "delete-success";
-    //}
+    @PostMapping("/web/deleteMovie")
+    public String deleteMovie(@ModelAttribute("movieToDelete") Movie movie) {
+        serviceLayer.deleteMovieById(movie.getId());
+        return "delete-success";
+    }
 }

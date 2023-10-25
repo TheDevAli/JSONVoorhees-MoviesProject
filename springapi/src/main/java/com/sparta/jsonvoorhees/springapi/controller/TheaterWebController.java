@@ -62,11 +62,9 @@ public class TheaterWebController {
         return "/theater/theater-delete-form";
     }
 
-
-
-    //@PostMapping("/web/deleteTheater")
-    //public String deleteTheater(@ModelAttribute("theaterToDelete") Theater theater) {
-    //    serviceLayer.deleteTheater(theater);
-    //    return "delete-success";
-    //}
+    @PostMapping("/web/deleteTheater")
+    public String deleteTheater(@ModelAttribute("theaterToDelete") Theater theater) {
+        serviceLayer.deleteTheaterById(theater.getId());
+        return "delete-success";
+    }
 }
