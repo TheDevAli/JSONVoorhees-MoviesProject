@@ -1,7 +1,10 @@
 package com.sparta.jsonvoorhees.springapi.controller;
 
+import com.sparta.jsonvoorhees.springapi.exceptions.ScheduleNotFoundException;
+import com.sparta.jsonvoorhees.springapi.exceptions.TheaterNotFoundException;
 import com.sparta.jsonvoorhees.springapi.model.entities.Movie;
 import com.sparta.jsonvoorhees.springapi.model.entities.Schedule;
+import com.sparta.jsonvoorhees.springapi.model.entities.Theater;
 import com.sparta.jsonvoorhees.springapi.model.entities.User;
 import com.sparta.jsonvoorhees.springapi.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,11 @@ public class ScheduleApiController {
     }
 
     @GetMapping("/api/schedules/getSchedule/{theaterId}")
-    public List<Schedule> getSchedulesByTheaterId(@PathVariable String theaterId) {
+    public List<Schedule> getSchedulesByTheaterId(@PathVariable String theaterId) throws TheaterNotFoundException {
+        Optional<Theater> theaterById = serviceLayer.getTheaterById(theaterId);
+        if (theaterById.isEmpty()){
+            throw new TheaterNotFoundException(theaterId);
+        }
         return serviceLayer.getSchedulesForTheaters(theaterId);
     }
 
@@ -30,12 +37,20 @@ public class ScheduleApiController {
     }
 
     @DeleteMapping("/api/schedules/{id}")
-    public String deleteSchedule(@PathVariable String id) {
+    public String deleteSchedule(@PathVariable String id) throws ScheduleNotFoundException {
+        Optional<Schedule> scheduleById = serviceLayer.getScheduleById(id);
+        if (scheduleById.isEmpty()){
+            throw new ScheduleNotFoundException(id);
+        }
         return serviceLayer.deleteScheduleById(id);
     }
 
-    @PatchMapping("/api/schedules")
-    public Schedule updateUser(@RequestBody Schedule schedule) {
+    @PatchMapping("/api/schedules/{id}")
+    public Schedule updateUser(@RequestBody Schedule schedule, @PathVariable String id) throws ScheduleNotFoundException {
+        Optional<Schedule> scheduleById = serviceLayer.getScheduleById(id);
+        if (scheduleById.isEmpty()){
+            throw new ScheduleNotFoundException(id);
+        }
         return serviceLayer.updateSchedule(schedule);
     }
 }
