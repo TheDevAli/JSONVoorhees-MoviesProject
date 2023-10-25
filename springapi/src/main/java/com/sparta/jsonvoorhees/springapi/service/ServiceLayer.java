@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ServiceLayer {
+public class ServiceLayer implements IServiceLayer {
     private final CommentRepository commentRepository;
     private final MovieRepository movieRepository;
     private final TheaterRepository theaterRepository;
