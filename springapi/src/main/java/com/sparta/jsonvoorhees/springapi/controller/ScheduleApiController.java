@@ -9,6 +9,8 @@ import com.sparta.jsonvoorhees.springapi.model.entities.Theater;
 import com.sparta.jsonvoorhees.springapi.model.entities.User;
 import com.sparta.jsonvoorhees.springapi.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,9 @@ public class ScheduleApiController {
         this.serviceLayer = serviceLayer;
     }
 
-    @GetMapping("/api/schedules/getSchedule/{theaterId}")
+    @GetMapping("/api/schedules/{theaterId}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<Schedule> getSchedulesByTheaterId(@PathVariable String theaterId) throws TheaterNotFoundException {
         Optional<Theater> theaterById = serviceLayer.getTheaterById(theaterId);
         if (theaterById.isEmpty()){
@@ -33,6 +37,8 @@ public class ScheduleApiController {
     }
 
     @PostMapping("/api/schedules")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Schedule createSchedule(@RequestBody Schedule schedule) throws ScheduleBodyNotFoundException {
         if(schedule.getMovieId().isEmpty() || schedule.getTheaterId().isEmpty()) {
             throw new ScheduleBodyNotFoundException();
@@ -41,6 +47,8 @@ public class ScheduleApiController {
     }
 
     @DeleteMapping("/api/schedules/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteSchedule(@PathVariable String id) throws ScheduleNotFoundException {
         Optional<Schedule> scheduleById = serviceLayer.getScheduleById(id);
         if (scheduleById.isEmpty()){
@@ -50,6 +58,8 @@ public class ScheduleApiController {
     }
 
     @PatchMapping("/api/schedules/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Schedule updateUser(@RequestBody Schedule schedule, @PathVariable String id) throws ScheduleNotFoundException {
         Optional<Schedule> scheduleById = serviceLayer.getScheduleById(id);
         if (scheduleById.isEmpty()){

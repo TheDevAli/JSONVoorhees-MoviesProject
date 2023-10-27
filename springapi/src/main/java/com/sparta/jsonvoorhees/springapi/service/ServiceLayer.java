@@ -112,8 +112,14 @@ public class ServiceLayer implements IServiceLayer {
     }
     public Page<User> getAllUsers(Pageable pageRequest )
     {
-
         return userRepository.findAll(pageRequest);
+    }
+
+    public Page<User> getAllUsersByName(String name, Pageable pageRequest ) {
+        if (name == null)
+            return userRepository.findAll(pageRequest);
+        else
+            return userRepository.findUsersByNameContainingIgnoreCase(name, pageRequest);
     }
     
     public List<Schedule> getAllSchedules()
@@ -133,14 +139,18 @@ public class ServiceLayer implements IServiceLayer {
     {
         return commentRepository.findAll(pageRequest);
     }
+    public List<Theater> getAllTheaters() { return theaterRepository.findAll();}
 
-    public List<Theater> getAllTheaters()
-    {
-        return theaterRepository.findAll();
-    }
     public Page<Theater> getAllTheaters(Pageable pageRequest)
     {
         return theaterRepository.findAll(pageRequest);
+    }
+    public Page<Theater> getAllTheatersByCity(String city, Pageable pageRequest)
+    {
+        if (city == null)
+            return theaterRepository.findAll(pageRequest);
+        else
+            return theaterRepository.findTheatersByLocationAddressCityContainsIgnoreCase(city, pageRequest);
     }
 
     //endregion
@@ -176,26 +186,6 @@ public class ServiceLayer implements IServiceLayer {
     }
     //endregion
 
-    //region Special Getters
-    public List<Comment> getCommentsWithSpecifiedWords(List<String> wordsToSearchFor)
-    {
-        List<Comment> selectedComments = new ArrayList<Comment>();
-        List<Comment> allComments = commentRepository.findAll();
-        for (Comment comment:allComments)
-        {
-            String contents = comment.getText().toLowerCase();
-            String[] wordsInContent = contents.trim().split("\\s+");
-            for (String word: wordsInContent)
-            {
-                if (wordsToSearchFor.contains(word) && !selectedComments.contains(comment))
-                {
-                    selectedComments.add(comment);
-                }
-            }
-        }
-        return selectedComments;
-    }
-    //endregion
 
     //region Deleters
     public String deleteCommentById(String id)
@@ -212,7 +202,7 @@ public class ServiceLayer implements IServiceLayer {
     {
         if (movieRepository.findMovieById(id).isEmpty()) {
             //Exception
-            return "Movie not Found";
+            return "Movie Not Found";
         }
         movieRepository.deleteById(id);
         return "Movie Deleted";
@@ -222,7 +212,7 @@ public class ServiceLayer implements IServiceLayer {
     {
         if (scheduleRepository.findScheduleById(id).isEmpty()) {
             //Exception
-            return "Movie not Found";
+            return "Schedule Not Found";
         }
         scheduleRepository.deleteById(id);
         return "Schedule Deleted";
@@ -232,19 +222,19 @@ public class ServiceLayer implements IServiceLayer {
     //Theater id is a Long...? Check this
     public String deleteTheaterById(String id)
     {
-        Theater theaterToDelete = theaterRepository.findTheaterById(id).get();
         if (theaterRepository.findTheaterById(id).isEmpty()) {
             //Throw Exception
             return "Theater Not Found";
         }
-        theaterRepository.delete(theaterToDelete);
+        theaterRepository.deleteById(id);
         return "Theater Deleted";
     }
 
     //@Todo This is still up for debate
-    public void deleteUserById(String id)
+    public String deleteUserById(String id)
     {
         userRepository.deleteById(id);
+        return "User Deleted";
     }
     //endregion
 
