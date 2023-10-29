@@ -18,9 +18,3 @@ Additionally, a new feature is required to allow an administrator to create a sc
 - Spring Boot must be used for the API and Web front ends
 - Spring Data MongoDB must be used for accessing the database from both the API and the Web application
 - The code repository for the project must be hosted on GitHub
-
-#### Submission
-By link to GitHub repo, by 18:00 on Friday.
-
-### Project Presentations
-Each group will give a 15 minute presentation on the outcome of the project to the Sparta Academy on Friday at **15:00 A further 15 minutes will be allowed immediately after each group's presentation to cover any questions from the audience.
